@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -29,7 +30,7 @@ export class WhatsappController {
     }
 
     this.logger.warn('⚠️ Token inválido, rechazando la verificación');
-    return 'Token inválido';
+    throw BadRequestException('Token Invalido')
   }
   
 
