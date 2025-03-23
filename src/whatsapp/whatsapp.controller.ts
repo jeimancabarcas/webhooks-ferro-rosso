@@ -13,17 +13,17 @@ export class WhatsappController {
   private readonly VERIFY_TOKEN = 'MI_TOKEN_SEGURO';
   private readonly logger = new Logger(WhatsappController.name);
 
-
-  // ✅ Verificación de Webhook
   @Get()
-  verifyWebhook(@Query() query: any): string {
-    const mode = query['hub.mode'];
-    const token = query['hub.verify_token'];
-    const challenge = query['hub.challenge'];
+  verifyWebhook(
+    @Query('hub.mode') mode: string,
+    @Query('hub.challenge') challenge: string,
+    @Query('hub.verify_token') token: string,
+  ): string {
+    this.logger.log(
+      `🔹 Recibido GET para verificar: mode=${mode}, token=${token}`,
+    );
 
-    this.logger.log(`🔹 Recibido GET para verificar: mode=${mode}, token=${token}`);
-
-    if (mode === 'subscribe' && token === process.env.WHATSAPP_VERIFY_TOKEN) {
+    if (mode === 'subscribe' && token === this.VERIFY_TOKEN) {
       this.logger.log('✅ Webhook verificado correctamente');
       return challenge; // WhatsApp espera esto para aprobar el webhook
     }
@@ -31,8 +31,8 @@ export class WhatsappController {
     this.logger.warn('⚠️ Token inválido, rechazando la verificación');
     return 'Token inválido';
   }
+  
 
-  // ✅ Recibir mensajes de WhatsApp
   @Post()
   receiveMessage(@Body() body: any, @Headers() headers: any) {
     this.logger.log('📩 Mensaje recibido:');
