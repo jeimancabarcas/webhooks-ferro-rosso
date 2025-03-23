@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Header,
   Headers,
   Logger,
   Post,
@@ -15,6 +16,7 @@ export class WhatsappController {
   private readonly logger = new Logger(WhatsappController.name);
 
   @Get()
+  @Header('Content-Type', 'text/plain')
   verifyWebhook(
     @Query('hub.mode') mode: string,
     @Query('hub.challenge') challenge: string,
