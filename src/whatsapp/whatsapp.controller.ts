@@ -2,7 +2,6 @@ import { Body, Controller, Get, Headers, Post, Query } from '@nestjs/common';
 
 @Controller('whatsapp/webhook')
 export class WhatsappController {
-  
   private readonly VERIFY_TOKEN = 'MI_TOKEN_SEGURO';
 
   @Get()
@@ -19,7 +18,7 @@ export class WhatsappController {
 
   @Post()
   receiveMessage(@Body() body: any, @Headers() headers: any) {
-    console.log('Mensaje recibido:', JSON.stringify(body, null, 2));
+    console.warn('Mensaje recibido:', JSON.stringify(body, null, 2));
     return { status: 'OK' };
   }
 }
