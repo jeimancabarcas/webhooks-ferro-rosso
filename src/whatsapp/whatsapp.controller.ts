@@ -32,7 +32,7 @@ export class WhatsappController {
     }
 
     this.logger.warn('⚠️ Token inválido, rechazando la verificación');
-    throw BadRequestException('Token Invalido')
+    throw new BadRequestException('Token Invalido');
   }
   
 
