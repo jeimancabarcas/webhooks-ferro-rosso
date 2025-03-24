@@ -32,7 +32,6 @@ export class WhatsappController {
     this.logger.log(
       `🔹 Recibido GET para verificar: mode=${mode}, token=${token}`,
     );
-
     if (
       mode === 'subscribe' &&
       token === this.configService.get<string>('VERIFY_TOKEN')
@@ -40,14 +39,13 @@ export class WhatsappController {
       this.logger.log('✅ Webhook verificado correctamente');
       return challenge; // WhatsApp espera esto para aprobar el webhook
     }
-
     this.logger.warn('⚠️ Token inválido, rechazando la verificación');
     throw new BadRequestException('Token Invalido');
   }
 
   @Post()
   @HttpCode(200)
-  async asyncreceiveMessage(@Body() body: any) {
+  async handleIncomingWhatsappMessage(@Body() body: any) {
     const { messages } = body?.entry?.[0].changes?.[0].value ?? {};
     if (!messages) return;
 
