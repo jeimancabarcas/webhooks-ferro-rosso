@@ -8,6 +8,7 @@ import { WhatsappService } from './whatsapp/whatsapp.service';
 import { DeepseekModule } from './deepseek/deepseek.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersModule } from './orders/orders.module';
+import { MastersModule } from './masters/masters.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { OrdersModule } from './orders/orders.module';
     }),
     DeepseekModule,
     OrdersModule,
+    MastersModule,
   ],
   controllers: [AppController, WhatsappController],
   providers: [AppService, WhatsappService],
