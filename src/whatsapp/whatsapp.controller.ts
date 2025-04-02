@@ -13,7 +13,7 @@ import { ConfigService } from '@nestjs/config';
 import { WhatsappService } from './whatsapp.service';
 import { DeepseekService } from 'src/deepseek/deepseek.service';
 
-@Controller('whatsapp/webhooks')
+@Controller('webhooks')
 export class WhatsappController {
   private readonly logger = new Logger(WhatsappController.name);
   constructor(
@@ -22,7 +22,7 @@ export class WhatsappController {
     private configService: ConfigService,
   ) {}
 
-  @Get()
+  @Get('whatsapp')
   @Header('Content-Type', 'text/plain')
   verifyWebhook(
     @Query('hub.mode') mode: string,
@@ -43,7 +43,7 @@ export class WhatsappController {
     throw new BadRequestException('Token Invalido');
   }
 
-  @Post()
+  @Post('whatsapp')
   @HttpCode(200)
   async handleIncomingWhatsappMessage(@Body() body: any) {
     const { messages } = body?.entry?.[0].changes?.[0].value ?? {};

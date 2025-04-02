@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres
+    container_name: forno_rosso_pg
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: forno_rosso_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+
+volumes:
+  pgdata:
